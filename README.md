@@ -24,6 +24,7 @@ Each version has its own path. A new version gets the next letter. Do not overwr
 | E | https://tomiwu.github.io/pacholczyk-demo/e/ | Same scroll story as D, with a landing view: the company name, the towns Uniejów · Turek, and a muted photo of the Warta and the castle. The photo is a small AVIF (about 34 KB on a phone) with an inline blur placeholder. |
 | F | https://tomiwu.github.io/pacholczyk-demo/f/ | Landing view from E, then four snap scenes (church, hearse, road, heaven). One swipe or wheel gesture moves exactly one scene. The finger can scrub frames; on release the player plays to the target at a constant speed. The canvas is the native frame size (CSS cover). Text shows only on a settled scene, on a panel. Assets use a cache-busting query. |
 | G | https://tomiwu.github.io/pacholczyk-demo/g/ | Same snap-scene mechanics as F (landing, one swipe per scene, scrub on drag). The captions use the placement, typography, and timing from version A: the text stays visible while the film plays, and it fades at the same frame points as in A. |
+| H | https://tomiwu.github.io/pacholczyk-demo/h/ | Same mechanics, landing, and captions as G. Story frames are re-extracted from the 1280×720 source videos at native resolution (desktop 1280×720, mobile 405×720 portrait crop — the source is not large enough for 1920×1080 or 810×1440 without upscaling) as high-quality AVIF with a WebP fallback. Frames load in the background after the landing paints. |
 
 Each version page has a small switcher: A | B | C | D | E.
 
