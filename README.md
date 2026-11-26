@@ -16,13 +16,14 @@ Each version has its own path. A new version gets the next letter. Do not overwr
 
 | Version | URL | What it is |
 |---|---|---|
-| Index | https://tomiwu.github.io/pacholczyk-demo/ | List of versions. The newest version is D. |
+| Index | https://tomiwu.github.io/pacholczyk-demo/ | List of versions. The newest version is E. |
 | A | https://tomiwu.github.io/pacholczyk-demo/a/ | The first video-frame story. 120 WebP frames per theme and orientation. This is the look Tomasz preferred. |
 | B | https://tomiwu.github.io/pacholczyk-demo/b/ | The light layered story (4 scenes + 2 sprites). Smaller files. Tomasz said this look was worse. |
 | C | https://tomiwu.github.io/pacholczyk-demo/c/ | Key frames from the same videos as A (32 frames) with a canvas crossfade and scroll easing. AVIF with a WebP fallback. |
 | D | https://tomiwu.github.io/pacholczyk-demo/d/ | Same 120 video frames as A. The frame index is a linear function of scroll progress over the sticky range. The last frame is on screen when the next section starts. No easing. Frames are preloaded as ImageBitmaps. |
+| E | https://tomiwu.github.io/pacholczyk-demo/e/ | Same scroll story as D, with a landing view: the company name, the towns Uniejów · Turek, and a muted photo of the Warta and the castle. The photo is a small AVIF (about 34 KB on a phone) with an inline blur placeholder. |
 
-Each version page has a small switcher: A | B | C | D.
+Each version page has a small switcher: A | B | C | D | E.
 
 ## Version C in short
 
@@ -36,7 +37,7 @@ Each version page has a small switcher: A | B | C | D.
 
 - `index.html`: the version list.
 - `robots.txt`, `.nojekyll`, `.gitignore`.
-- `a/`, `b/`, `c/`, `d/`: the complete versions. Fonts stay inside each version (`a/a/`, `b/a/`, `c/a/`, `d/a/`), so an old version does not break.
+- `a/`, `b/`, `c/`, `d/`, `e/`: the complete versions. Fonts stay inside each version, so an old version does not break.
 
 ## Version D in short
 
@@ -44,3 +45,11 @@ Each version page has a small switcher: A | B | C | D.
 - Cause of the lag and the ease-in / ease-out feel in A: the script moved the frame position with a lerp (`cur = cur + (target - cur) * 0.14`). The shown frame trailed the scroll, started late, and eased in at the end, so the last frames could arrive after the next section had started. Frames also loaded in a coarse-to-fine order as `<img>` elements, so a missing frame held the nearest loaded one.
 - In D the frame index is `progress * 119`, where progress is `(scrollY - storyTop) / (storyHeight - viewportHeight)`. There is no easing.
 - All frames preload as `ImageBitmap`s (fetch + `createImageBitmap`) while the poster is on screen. The canvas draws in `requestAnimationFrame` only when the index changes. The scroll listener is passive. Layout is measured on resize, not in the draw loop.
+
+## Version E in short
+
+- Same linear 120-frame story as version D.
+- The first screen is a landing view. It shows the name **Pacholczyk**, the line "Zakład Usług Pogrzebowych", and the towns **Uniejów · Turek** under the name, with the 24h phone button.
+- The background is a muted photo of the Warta and the castle in Uniejów (Annkes, CC BY 3.0). A cream or graphite scrim keeps the text and the button well above WCAG AA contrast.
+- The photo is one small AVIF with a WebP fallback (about 34 KB AVIF on a phone, 38 KB on a wide screen) and a tiny inline blur placeholder, so the first paint does not wait for the story frames. The 120 frames start to load after the `load` event, when the browser is idle.
+- This photo shows the river and the castle clearly. It does not show the collegiate church. A photo or a painting that has the church, the castle and the river in one view would need a new picture.
