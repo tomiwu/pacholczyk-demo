@@ -22,7 +22,7 @@ function render(p){
  var k1=ez(rg(p,0,.2)),kz=ez(rg(p,.18,.29)),f1=1-ez(rg(p,.2,.29));
  L[0].style.transform='scale('+(1+.1*k1+.3*kz)+') translateY('+(k1*2)+'%)';L[0].style.opacity=f1;
  var k2=ez(rg(p,.2,.36)),kp=ez(rg(p,.5,.61)),f2=1-ez(rg(p,.54,.6));
- L[1].style.transform='translateX('+(-22*kp)+'%) scale('+(1.12-.12*k2)+')';L[1].style.opacity=p<.18?0:f2;
+ L[1].style.transform='translateX('+(-22*kp)+'%) scale('+(1.12-.12*k2)+')';L[1].style.opacity=p<.18?0:f2;L[1].classList.toggle('pan',p>.5);
  var k3=ez(rg(p,.5,.66)),up=ez(rg(p,.76,.94));
  L[2].style.transform='translateX('+(10*(1-kp))+'%) translateY('+(up*58)+'%) scale('+(1+.22*(1-kp)+.06*(1-k3))+')';L[2].style.opacity=p<.5?0:1-ez(rg(p,.84,.95));
  L[3].style.transform='translateY('+(-32+32*up)+'%) scale('+(1.06-.06*ez(rg(p,.85,1)))+')';
