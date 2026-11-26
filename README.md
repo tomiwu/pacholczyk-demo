@@ -22,6 +22,7 @@ Each version has its own path. A new version gets the next letter. Do not overwr
 | C | https://tomiwu.github.io/pacholczyk-demo/c/ | Key frames from the same videos as A (32 frames) with a canvas crossfade and scroll easing. AVIF with a WebP fallback. |
 | D | https://tomiwu.github.io/pacholczyk-demo/d/ | Same 120 video frames as A. The frame index is a linear function of scroll progress over the sticky range. The last frame is on screen when the next section starts. No easing. Frames are preloaded as ImageBitmaps. |
 | E | https://tomiwu.github.io/pacholczyk-demo/e/ | Same scroll story as D, with a landing view: the company name, the towns Uniejów · Turek, and a muted photo of the Warta and the castle. The photo is a small AVIF (about 34 KB on a phone) with an inline blur placeholder. |
+| F | https://tomiwu.github.io/pacholczyk-demo/f/ | Landing view from E, then four snap scenes (church, hearse, road, heaven). One swipe or wheel gesture moves exactly one scene. The finger can scrub frames; on release the player plays to the target at a constant speed. The canvas is the native frame size (CSS cover). Text shows only on a settled scene, on a panel. Assets use a cache-busting query. |
 
 Each version page has a small switcher: A | B | C | D | E.
 
