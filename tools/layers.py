@@ -18,7 +18,7 @@ for s in ('s1','s2','s3','s4'):
         for o in ('d','m'):
             f=src.get((s,th,o)) or f'{s}-{th}-{o}.jpg'
             im=Image.open(A+f).convert('RGB')
-            save(im,f'{s}-{th}-{o}', q=58 if s!='s4' else 50)
+            save(im,f'{s}-{th}-{o}', q=(40 if s=='s1' else 58) if s!='s4' else 50)
 for n in ('hearse','bearers'):
     save(Image.open(A+n+'.png'),n,q=60,wq=78,alpha=True)
 # composite stills (desktop) for reduced motion / no JS
