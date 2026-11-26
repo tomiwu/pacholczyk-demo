@@ -66,10 +66,17 @@ html[data-theme="dark"] .tgl .i-sun{display:block}html[data-theme="dark"] .tgl .
 /* Story */
 .story{position:relative;height:600svh;view-timeline-name:--story}
 .stage{position:sticky;top:0;height:100svh;overflow:hidden;background:var(--bg);isolation:isolate}
-.stage picture,.stage img,.stage canvas{position:absolute;inset:0;width:100%;height:100%}
-.stage img{object-fit:cover}
-.stage canvas{opacity:0;transition:opacity .6s}
-.stage canvas.on{opacity:1}
+.L{position:absolute;inset:0;will-change:transform,opacity;transform-origin:50% 45%}
+.L img,.L picture{position:absolute;inset:0;width:100%;height:100%}
+.L img{object-fit:cover}
+#L3{-webkit-mask-image:linear-gradient(transparent,#000 14%);mask-image:linear-gradient(transparent,#000 14%)}
+#L1{z-index:1}#L2{z-index:0}#L3{z-index:-1}#L4{z-index:-2}
+.sp{position:absolute;left:0;top:0;z-index:1;width:auto;will-change:transform,opacity;opacity:0;pointer-events:none}
+html[data-theme="dark"] .sp{filter:brightness(.8)}
+@media (prefers-color-scheme:dark){html:not([data-theme="light"]) .sp{filter:brightness(.8)}}
+.sun{position:absolute;inset:0;z-index:1;pointer-events:none;opacity:0;background:radial-gradient(40% 32% at 50% 56%,rgb(255 236 190/.75),rgb(255 236 190/0) 70%);mix-blend-mode:screen}
+.L img:not([src]){visibility:hidden}
+
 .stage::after{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;background:radial-gradient(130% 100% at 50% 45%,transparent 60%,rgb(var(--scrim)/.32))}
 .scr{position:absolute;inset:0;z-index:2;pointer-events:none;will-change:opacity}
 .scr-b{background:linear-gradient(to top,rgb(var(--scrim)/.97) 0%,rgb(var(--scrim)/.86) 22%,rgb(var(--scrim)/.35) 44%,rgb(var(--scrim)/0) 60%)}
@@ -229,14 +236,23 @@ fieldset{border:0;padding:0;margin:0}
 <main id="top">
 <section class="story" id="story" aria-label="Opowieść: ostatnia droga">
  <div class="stage" id="stage">
-  <picture>
-   <source media="(prefers-color-scheme: dark) and (max-aspect-ratio: 4/5)" srcset="s/poster-dark-m.avif" type="image/avif">
-   <source media="(prefers-color-scheme: dark)" srcset="s/poster-dark-d.avif" type="image/avif">
-   <source media="(max-aspect-ratio: 4/5)" srcset="s/poster-light-m.avif" type="image/avif">
-   <source srcset="s/poster-light-d.avif" type="image/avif">
-   <img id="poster" src="f/light/d/000.webp" alt="" width="1280" height="720" fetchpriority="high">
-  </picture>
-  <canvas id="cv" aria-hidden="true"></canvas>
+  <div class="L" id="L1"><picture id="P1">
+   <source media="(prefers-color-scheme: dark) and (max-aspect-ratio: 4/5)" srcset="v/s1-dark-m.avif" type="image/avif">
+   <source media="(prefers-color-scheme: dark)" srcset="v/s1-dark-d.avif" type="image/avif">
+   <source media="(max-aspect-ratio: 4/5)" srcset="v/s1-light-m.avif" type="image/avif">
+   <source srcset="v/s1-light-d.avif" type="image/avif">
+   <source media="(prefers-color-scheme: dark) and (max-aspect-ratio: 4/5)" srcset="v/s1-dark-m.webp" type="image/webp">
+   <source media="(prefers-color-scheme: dark)" srcset="v/s1-dark-d.webp" type="image/webp">
+   <source media="(max-aspect-ratio: 4/5)" srcset="v/s1-light-m.webp" type="image/webp">
+   <source srcset="v/s1-light-d.webp" type="image/webp">
+   <img id="I1" src="v/s1-light-d.webp" alt="" width="1280" height="720" fetchpriority="high" data-k="s1">
+  </picture></div>
+  <div class="L" id="L2"><img alt="" data-k="s2" decoding="async"></div>
+  <div class="L" id="L3"><img alt="" data-k="s3" decoding="async"></div>
+  <div class="L" id="L4"><img alt="" data-k="s4" decoding="async"></div>
+  <img class="sp" id="SB" alt="" data-k="bearers" decoding="async">
+  <img class="sp" id="SH" alt="" data-k="hearse" decoding="async">
+  <div class="sun" id="sun" aria-hidden="true"></div>
   <div class="scr scr-b" aria-hidden="true"></div><div class="scr scr-t" aria-hidden="true"></div>
   <div class="grain" aria-hidden="true"></div>
   <div class="prog" aria-hidden="true"><i></i></div>
@@ -271,23 +287,23 @@ fieldset{border:0;padding:0;margin:0}
 
 <div class="stills" id="stills">
  <figure class="still">
-  <picture class="th-l"><source srcset="s/light-1-1280.avif" type="image/avif"><img src="s/light-1-1280.webp" alt="Wnętrze kolegiaty w Uniejowie, trumna w nawie, nad łukiem fresk z przeniesieniem relikwii św. Bogumiła" width="1280" height="720" loading="lazy"></picture>
-  <picture class="th-d"><source srcset="s/dark-1-1280.avif" type="image/avif"><img src="s/dark-1-1280.webp" alt="Wnętrze kolegiaty w Uniejowie przy świecach, trumna w nawie, nad łukiem fresk św. Bogumiła" width="1280" height="720" loading="lazy"></picture>
+  <picture class="th-l"><source srcset="v/s1-light-d.avif" type="image/avif"><img src="v/s1-light-d.webp" alt="Wnętrze kolegiaty w Uniejowie, trumna w nawie, nad łukiem fresk z przeniesieniem relikwii św. Bogumiła" width="1280" height="720" loading="lazy"></picture>
+  <picture class="th-d"><source srcset="v/s1-dark-d.avif" type="image/avif"><img src="v/s1-dark-d.webp" alt="Wnętrze kolegiaty w Uniejowie przy świecach, trumna w nawie, nad łukiem fresk św. Bogumiła" width="1280" height="720" loading="lazy"></picture>
   <figcaption class="txt"><p class="kicker">Zakład Usług Pogrzebowych · Uniejów i Turek</p><h2>Jesteśmy z&nbsp;Państwem w&nbsp;najtrudniejszej chwili</h2><p>Z szacunkiem i spokojem pomagamy pożegnać bliską osobę.</p></figcaption>
  </figure>
  <figure class="still">
-  <picture class="th-l"><source srcset="s/light-2-1280.avif" type="image/avif"><img src="s/light-2-1280.webp" alt="Niosący trumnę przed ceglanym kościołem, obok czarny karawan" width="1280" height="720" loading="lazy"></picture>
-  <picture class="th-d"><source srcset="s/dark-2-1280.avif" type="image/avif"><img src="s/dark-2-1280.webp" alt="Niosący trumnę o zmierzchu przed kościołem, lampiony, czarny karawan" width="1280" height="720" loading="lazy"></picture>
+  <picture class="th-l"><source srcset="v/still2-light.avif" type="image/avif"><img src="v/still2-light.webp" alt="Niosący trumnę przed ceglanym kościołem, obok czarny karawan" width="1280" height="720" loading="lazy"></picture>
+  <picture class="th-d"><source srcset="v/still2-dark.avif" type="image/avif"><img src="v/still2-dark.webp" alt="Niosący trumnę o zmierzchu przed kościołem, lampiony, czarny karawan" width="1280" height="720" loading="lazy"></picture>
   <figcaption class="txt"><p class="kicker">Ceremonia</p><h2>Godne pożegnanie</h2></figcaption>
  </figure>
  <figure class="still">
-  <picture class="th-l"><source srcset="s/light-3-1280.avif" type="image/avif"><img src="s/light-3-1280.webp" alt="Karawan jedzie wiejską drogą nad Wartą w stronę cmentarza na wzgórzu" width="1280" height="720" loading="lazy"></picture>
-  <picture class="th-d"><source srcset="s/dark-3-1280.avif" type="image/avif"><img src="s/dark-3-1280.webp" alt="Karawan o zmierzchu jedzie w stronę cmentarza rozświetlonego zniczami" width="1280" height="720" loading="lazy"></picture>
+  <picture class="th-l"><source srcset="v/still3-light.avif" type="image/avif"><img src="v/still3-light.webp" alt="Karawan jedzie wiejską drogą nad Wartą w stronę cmentarza na wzgórzu" width="1280" height="720" loading="lazy"></picture>
+  <picture class="th-d"><source srcset="v/still3-dark.avif" type="image/avif"><img src="v/still3-dark.webp" alt="Karawan o zmierzchu jedzie w stronę cmentarza rozświetlonego zniczami" width="1280" height="720" loading="lazy"></picture>
   <figcaption class="txt"><p class="kicker">Ostatnia droga</p><h2>Spokojnie i&nbsp;bez pośpiechu</h2></figcaption>
  </figure>
  <figure class="still">
-  <picture class="th-l"><source srcset="s/light-4-1280.avif" type="image/avif"><img src="s/light-4-1280.webp" alt="Spokojne niebo nad chmurami w ciepłym świetle słońca" width="1280" height="720" loading="lazy"></picture>
-  <picture class="th-d"><source srcset="s/dark-4-1280.avif" type="image/avif"><img src="s/dark-4-1280.webp" alt="Złote chmury i ciepłe światło na wieczornym niebie" width="1280" height="720" loading="lazy"></picture>
+  <picture class="th-l"><source srcset="v/s4-light-d.avif" type="image/avif"><img src="v/s4-light-d.webp" alt="Spokojne niebo nad chmurami w ciepłym świetle słońca" width="1280" height="720" loading="lazy"></picture>
+  <picture class="th-d"><source srcset="v/s4-dark-d.avif" type="image/avif"><img src="v/s4-dark-d.webp" alt="Złote chmury i ciepłe światło na wieczornym niebie" width="1280" height="720" loading="lazy"></picture>
   <figcaption class="txt"><p class="kicker">Jesteśmy przy Was</p><h2>Całodobowo: Uniejów i&nbsp;Turek</h2><p><a href="tel:+48609731454">609 731 454</a> · <a href="tel:+48632888554">63 288 85 54</a></p></figcaption>
  </figure>
 </div>
@@ -394,7 +410,7 @@ fieldset{border:0;padding:0;margin:0}
 
 <script>
 (function(){
-var d=document.documentElement,N=120,story=document.getElementById('story'),cv=document.getElementById('cv'),cx=cv.getContext('2d'),hd=document.getElementById('hd'),
+var d=document.documentElement,story=document.getElementById('story'),hd=document.getElementById('hd'),
  caps=[].slice.call(document.querySelectorAll('.cap')),steps=[].slice.call(document.querySelectorAll('.steps li')),bar=document.querySelector('.prog i'),
  mq=matchMedia('(prefers-color-scheme: dark)'),rm=matchMedia('(prefers-reduced-motion: reduce)'),tgl=document.getElementById('tgl'),sb=document.querySelector('.scr-b'),st=document.querySelector('.scr-t'),
  sdt=typeof CSS!=='undefined'&&CSS.supports&&CSS.supports('animation-timeline: view()');
@@ -404,23 +420,47 @@ setLabel();
 tgl.addEventListener('click',function(){var t=theme()==='dark'?'light':'dark';d.dataset.theme=t;try{localStorage.setItem('theme',t)}catch(e){}setLabel();load()});
 mq.addEventListener&&mq.addEventListener('change',function(){if(!d.dataset.theme){setLabel();load()}});
 
-/* frames */
-var frames=[],key='',cur=0,target=0,raf=0,W=0,H=0;
-function set(){return (innerWidth/innerHeight<0.8)?'m':'d'}
-function order(c){var o=[],seen={},steps=[24,12,6,3,1];function add(i){if(i>=0&&i<N&&!seen[i]){seen[i]=1;o.push(i)}}add(c);steps.forEach(function(s){for(var i=0;i<N;i+=s)add(i)});add(N-1);return o}
-function load(){
- if(rm.matches)return;
- var k=theme()+'/'+set();if(k===key)return;key=k;frames=new Array(N);
- var q=order(Math.round(cur*(N-1))),active=0,my=k;
- function next(){if(my!==key)return;while(active<6&&q.length){(function(i){active++;var im=new Image();im.decoding='async';im.src='f/'+k+'/'+String(i).padStart(3,'0')+'.webp';
-  (im.decode?im.decode():new Promise(function(r){im.onload=r})).then(function(){if(my!==key)return;frames[i]=im;if(!cv.classList.contains('on')&&frames[Math.round(cur*(N-1))]){cv.classList.add('on')}draw()},function(){}).then(function(){active--;next()})})(q.shift())}}
- next();
+/* layered story: 4 painted scenes + 2 sprites, transform/opacity only */
+var cur=0,target=0,raf=0,W=0,H=0,ext='webp',loaded=false,
+ L=[1,2,3,4].map(function(i){return document.getElementById('L'+i)}),SB=document.getElementById('SB'),SH=document.getElementById('SH'),sun=document.getElementById('sun');
+function orient(){return (innerWidth/innerHeight<0.8)?'m':'d'}
+function url(k){return 'v/'+(k==='hearse'||k==='bearers'?k:k+'-'+theme()+'-'+orient())+'.'+ext}
+function setSrc(img,k){var u=url(k);if(img.getAttribute('src')!==u)img.src=u}
+function apply(){
+ if(d.dataset.theme){var P=document.getElementById('P1');[].slice.call(P.querySelectorAll('source')).forEach(function(x){x.remove()});setSrc(document.getElementById('I1'),'s1')}
+ if(!loaded)return;
+ [].slice.call(document.querySelectorAll('#L2 img,#L3 img,#L4 img,.sp')).forEach(function(im){setSrc(im,im.dataset.k)});
 }
-function size(){var r=Math.min(devicePixelRatio||1,2);W=cv.width=Math.round(cv.clientWidth*r);H=cv.height=Math.round(cv.clientHeight*r);if(set()!==key.split('/')[1])load();draw()}
-function near(i){if(frames[i])return i;for(var k=1;k<N;k++){if(frames[i-k])return i-k;if(frames[i+k])return i+k}return -1}
-function paint(im,a){var iw=im.naturalWidth,ih=im.naturalHeight,s=Math.max(W/iw,H/ih),w=iw*s,h=ih*s;cx.globalAlpha=a;cx.drawImage(im,(W-w)/2,(H-h)/2,w,h)}
-function draw(){if(!W)return;var f=cur*(N-1),i0=Math.floor(f),i1=Math.min(N-1,i0+1),a=f-i0,j0=near(i0);if(j0<0)return;
- paint(frames[j0],1);if(a>0.02&&frames[i1]&&j0===i0)paint(frames[i1],a);cx.globalAlpha=1}
+function load(){apply()}
+function later(){(window.requestIdleCallback||setTimeout)(function(){loaded=true;apply()},{timeout:500})}
+function go(){if(document.readyState==='complete')later();else addEventListener('load',later)}
+var t=new Image();t.onload=function(){ext='avif';if(d.dataset.theme)apply();go()};t.onerror=function(){if(d.dataset.theme)apply();go()};t.src='data:image/avif;base64,AAAAIGZ0eXBhdmlmAAAAAGF2aWZtaWYxbWlhZk1BMUIAAADrbWV0YQAAAAAAAAAhaGRscgAAAAAAAAAAcGljdAAAAAAAAAAAAAAAAAAAAAAOcGl0bQAAAAAAAQAAAB5pbG9jAAAAAEQAAAEAAQAAAAEAAAETAAAAIQAAAChpaW5mAAAAAAABAAAAGmluZmUCAAAAAAEAAGF2MDFDb2xvcgAAAABqaXBycAAAAEtpcGNvAAAAFGlzcGUAAAAAAAAAAQAAAAEAAAAQcGl4aQAAAAADCAgIAAAADGF2MUOBAAwAAAAAE2NvbHJuY2x4AAEADQAGgAAAABdpcG1hAAAAAAAAAAEAAQQBAoMEAAAAKW1kYXQSAAoIGAAGiAhoNCAyExlHh4Yhh5555oAAAJBAyRxhQr4=';
+function cl(x){return x<0?0:x>1?1:x}
+function rg(p,a,b){return cl((p-a)/(b-a))}
+function ez(x){return x*x*(3-2*x)}
+function size(){W=innerWidth;H=document.getElementById('stage').clientHeight;var o=orient();if(o!==size.o){size.o=o;apply()}render(cur)}
+function render(p){
+ var m=orient()==='m';
+ var k1=ez(rg(p,0,.2)),kz=ez(rg(p,.18,.29)),f1=1-ez(rg(p,.2,.29));
+ L[0].style.transform='scale('+(1+.1*k1+.3*kz)+') translateY('+(k1*2)+'%)';L[0].style.opacity=f1;
+ var k2=ez(rg(p,.2,.36)),kp=ez(rg(p,.5,.61)),f2=1-ez(rg(p,.54,.6));
+ L[1].style.transform='translateX('+(-22*kp)+'%) scale('+(1.12-.12*k2)+')';L[1].style.opacity=f2;
+ var k3=ez(rg(p,.5,.66)),up=ez(rg(p,.76,.94));
+ L[2].style.transform='translateX('+(10*(1-kp))+'%) translateY('+(up*58)+'%) scale('+(1+.22*(1-kp)+.06*(1-k3))+')';L[2].style.opacity=1-ez(rg(p,.84,.95));
+ L[3].style.transform='translateY('+(-32+32*up)+'%) scale('+(1.06-.06*ez(rg(p,.85,1)))+')';
+ sun.style.opacity=.85*ez(rg(p,.86,1));
+ var hh=(m?.085:.19)*H,hw=hh*3.52,bh=(m?.115:.22)*H,bw=bh*2.34;
+ SB.style.height=bh+'px';
+ var vis2=(1-f1)*f2,g2=H*(1-.13),g3=H*(1-(m?.115:.10));
+ var xH=W*(m?.36:.55),xBe=xH-bw*.92,kb=ez(rg(p,.24,.45));
+ SB.style.transform='translate('+(-bw+(xBe+bw)*kb)+'px,'+(g2-bh)+'px)';SB.style.opacity=vis2*(1-ez(rg(p,.45,.5)));
+ var x,y,o,dr=rg(p,.48,.56);
+ if(p<.57){x=xH+(W+40-xH)*dr*dr;y=g2-hh;o=vis2}
+ else{if(m)hh*=.9;hw=hh*3.52;var kc=1-Math.pow(1-rg(p,.58,.82),2),xC=W*(m?.3:.4);x=-hw+(xC+hw)*kc;y=g3-hh+up*.58*H;o=ez(rg(p,.57,.6))*(1-ez(rg(p,.84,.95)))}
+ SH.style.height=hh+'px';
+ var bob=((dr>0&&dr<1)||(p>.58&&p<.82))?Math.sin(p*900)*.6:0;
+ SH.style.transform='translate('+x+'px,'+(y+bob)+'px)';SH.style.opacity=o;
+}
 function prog(){var r=story.getBoundingClientRect(),len=story.offsetHeight-innerHeight;return Math.max(0,Math.min(1,-r.top/len))}
 function ui(p){
  var ob=0,ot=0,dk=innerWidth>=960;
@@ -433,9 +473,9 @@ function ui(p){
  if(!sdt)bar.style.setProperty('--p',p);
  hd.classList.toggle('solid',story.getBoundingClientRect().bottom<80);
 }
-function tick(){raf=0;var dlt=target-cur;cur=Math.abs(dlt)<.0004?target:cur+dlt*.14;draw();ui(cur);if(cur!==target)raf=requestAnimationFrame(tick)}
+function tick(){raf=0;var dlt=target-cur;cur=Math.abs(dlt)<.0004?target:cur+dlt*.12;render(cur);ui(cur);if(cur!==target)raf=requestAnimationFrame(tick)}
 function onScroll(){target=prog();if(!raf)raf=requestAnimationFrame(tick)}
-if(!rm.matches){addEventListener('scroll',onScroll,{passive:true});addEventListener('resize',size);size();load();target=cur=prog();ui(cur)}
+if(!rm.matches){addEventListener('scroll',onScroll,{passive:true});addEventListener('resize',size);target=cur=prog();size();ui(cur)}
 else{hd.classList.add('solid')}
 
 /* reveal fallback */

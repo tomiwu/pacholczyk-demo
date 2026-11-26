@@ -10,9 +10,9 @@ for (const [vn, vp] of Object.entries(vps)) for (const scheme of ['light', 'dark
   await pg.goto(base, { waitUntil: 'networkidle' });
   await pg.waitForTimeout(1500);
   const len = await pg.evaluate(() => { const s = document.getElementById('story'); return s.offsetHeight - innerHeight; });
-  for (const p of [0, 0.12, 0.3, 0.42, 0.62, 0.75, 0.9, 1]) {
+  for (const p of [0, 0.12, 0.3, 0.4, 0.47, 0.55, 0.68, 0.8, 0.88, 1]) {
     await pg.evaluate(y => window.scrollTo(0, y), Math.round(p * len));
-    await pg.waitForTimeout(1400);
+    await pg.waitForTimeout(1100);
     await pg.screenshot({ path: `${out}/${vn}-${scheme}-story-${String(Math.round(p * 100)).padStart(3, '0')}.png` });
   }
   for (const id of ['o-nas', 'uslugi', 'pierwsze-kroki', 'zgloszenie', 'kontakt']) {
