@@ -23,6 +23,7 @@ Each version has its own path. A new version gets the next letter. Do not overwr
 | D | https://tomiwu.github.io/pacholczyk-demo/d/ | Same 120 video frames as A. The frame index is a linear function of scroll progress over the sticky range. The last frame is on screen when the next section starts. No easing. Frames are preloaded as ImageBitmaps. |
 | E | https://tomiwu.github.io/pacholczyk-demo/e/ | Same scroll story as D, with a landing view: the company name, the towns Uniejów · Turek, and a muted photo of the Warta and the castle. The photo is a small AVIF (about 34 KB on a phone) with an inline blur placeholder. |
 | F | https://tomiwu.github.io/pacholczyk-demo/f/ | Landing view from E, then four snap scenes (church, hearse, road, heaven). One swipe or wheel gesture moves exactly one scene. The finger can scrub frames; on release the player plays to the target at a constant speed. The canvas is the native frame size (CSS cover). Text shows only on a settled scene, on a panel. Assets use a cache-busting query. |
+| G | https://tomiwu.github.io/pacholczyk-demo/g/ | Same snap-scene mechanics as F (landing, one swipe per scene, scrub on drag). The captions use the placement, typography, and timing from version A: the text stays visible while the film plays, and it fades at the same frame points as in A. |
 
 Each version page has a small switcher: A | B | C | D | E.
 
