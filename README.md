@@ -1,27 +1,38 @@
-# Pacholczyk – scroll story demo
+# Pacholczyk — scroll story demo
 
 Demo only. All rights reserved.
 
 This is a static demo of the first page for Zakład Usług Pogrzebowych Pacholczyk (Uniejów and Turek). It is not the production site. The production site is in a different repository.
 
-## What it contains
+**The images on this demo are for the demo only.** They include AI-made concept art and reference photos. For the real site, Tomasz will take new photos and we must replace these images.
 
-- `index.html`: one page. Inlined CSS and a small vanilla JS. No libraries, no cookies, no analytics.
-- `v/`: the layered scroll story. For each theme (`light`, `dark`) and orientation (`d` = 16:9 for wide screens, `m` = 9:16 for phones) there are 4 painted scenes (`s1`–`s4`). There are also 2 sprites with alpha (`hearse`, `bearers`) and 2 composite stills (`still2`, `still3`) for "reduce motion". All images are AVIF with a WebP fallback.
-- `s/fresco-light.*`: the fresco image in the "O nas" section.
-- `a/`: the fonts Fraunces and Nunito Sans (SIL Open Font Licence 1.1, see the OFL files). They are subset to Latin and Latin Extended, with a small weight range.
-- `tools/layers.py`: encodes the layers and the stills. `tools/story.js`: the source of the story script. `tools/shots.mjs`: Playwright screenshots. `tools/bytes.mjs`: transfer-size measurement.
+Search engines must not index this demo (`noindex` and `robots.txt`).
 
-## How the story works
+Do not publish the production site or change DNS without Tomasz's own words.
 
-1. A sticky full-screen stage holds 4 scene layers and 2 sprites.
-2. The scroll position sets `transform` and `opacity` only. The church zooms in, the camera "walks out" to the church exterior, and the bearers carry the coffin to the hearse. The hearse drives away, the camera pans to the road and the cemetery, and the hearse drives in again. At the end the view tilts up to the sky.
-3. Only scene 1 loads before the first paint. It is the LCP image and is selected with `<picture>` by theme and orientation. Scenes 2–4 and the sprites load after the `load` event, when the browser is idle.
-4. Captions fade in and out at fixed scroll ranges. The progress bar and the section reveals use CSS scroll-driven animations, with a JavaScript fallback.
-5. With "reduce motion" on, or with JavaScript off, the page shows 4 still images.
+## Versions
 
-## Rights
+Each version has its own path. A new version gets the next letter. Do not overwrite an older version.
 
-The illustrations are AI-made concept art, painted with the help of reference photos of the Uniejów collegiate church. They are not photos. The page does not use the source photo of the church.
+| Version | URL | What it is |
+|---|---|---|
+| Index | https://tomiwu.github.io/pacholczyk-demo/ | List of versions. The newest version is C. |
+| A | https://tomiwu.github.io/pacholczyk-demo/a/ | The first video-frame story. 120 WebP frames per theme and orientation. This is the look Tomasz preferred. |
+| B | https://tomiwu.github.io/pacholczyk-demo/b/ | The light layered story (4 scenes + 2 sprites). Smaller files. Tomasz said this look was worse. |
+| C | https://tomiwu.github.io/pacholczyk-demo/c/ | Key frames from the same videos as A (32 frames) with a canvas crossfade and scroll easing. AVIF with a WebP fallback. |
 
-The search engines must not index this demo (`noindex` and `robots.txt`).
+Each version page has a small switcher: A | B | C.
+
+## Version C in short
+
+- 32 key frames per theme (`light`, `dark`) and orientation (`d` = 1280×720, `m` = 405×720 portrait crop).
+- The script draws two neighbour frames on a canvas and blends them with the fractional scroll position. A small lerp eases the motion.
+- Frame 0 loads first (it is also the LCP poster). The other frames load later, in order of scroll proximity.
+- With "reduce motion" on, or with JavaScript off, the page shows the same still images as version A.
+- `c/tools/frames.py` builds the frames from `video/concept.mp4` and `video/concept-dark.mp4`.
+
+## Shared files at the repository root
+
+- `index.html`: the version list.
+- `robots.txt`, `.nojekyll`, `.gitignore`.
+- `a/`, `b/`, `c/`: the complete versions. Fonts stay inside each version (`a/a/`, `b/a/`, `c/a/`), so an old version does not break.
