@@ -16,12 +16,13 @@ Each version has its own path. A new version gets the next letter. Do not overwr
 
 | Version | URL | What it is |
 |---|---|---|
-| Index | https://tomiwu.github.io/pacholczyk-demo/ | List of versions. The newest version is C. |
+| Index | https://tomiwu.github.io/pacholczyk-demo/ | List of versions. The newest version is D. |
 | A | https://tomiwu.github.io/pacholczyk-demo/a/ | The first video-frame story. 120 WebP frames per theme and orientation. This is the look Tomasz preferred. |
 | B | https://tomiwu.github.io/pacholczyk-demo/b/ | The light layered story (4 scenes + 2 sprites). Smaller files. Tomasz said this look was worse. |
 | C | https://tomiwu.github.io/pacholczyk-demo/c/ | Key frames from the same videos as A (32 frames) with a canvas crossfade and scroll easing. AVIF with a WebP fallback. |
+| D | https://tomiwu.github.io/pacholczyk-demo/d/ | Same 120 video frames as A. The frame index is a linear function of scroll progress over the sticky range. The last frame is on screen when the next section starts. No easing. Frames are preloaded as ImageBitmaps. |
 
-Each version page has a small switcher: A | B | C.
+Each version page has a small switcher: A | B | C | D.
 
 ## Version C in short
 
@@ -35,4 +36,11 @@ Each version page has a small switcher: A | B | C.
 
 - `index.html`: the version list.
 - `robots.txt`, `.nojekyll`, `.gitignore`.
-- `a/`, `b/`, `c/`: the complete versions. Fonts stay inside each version (`a/a/`, `b/a/`, `c/a/`), so an old version does not break.
+- `a/`, `b/`, `c/`, `d/`: the complete versions. Fonts stay inside each version (`a/a/`, `b/a/`, `c/a/`, `d/a/`), so an old version does not break.
+
+## Version D in short
+
+- Same look and same 120 WebP frames as version A.
+- Cause of the lag and the ease-in / ease-out feel in A: the script moved the frame position with a lerp (`cur = cur + (target - cur) * 0.14`). The shown frame trailed the scroll, started late, and eased in at the end, so the last frames could arrive after the next section had started. Frames also loaded in a coarse-to-fine order as `<img>` elements, so a missing frame held the nearest loaded one.
+- In D the frame index is `progress * 119`, where progress is `(scrollY - storyTop) / (storyHeight - viewportHeight)`. There is no easing.
+- All frames preload as `ImageBitmap`s (fetch + `createImageBitmap`) while the poster is on screen. The canvas draws in `requestAnimationFrame` only when the index changes. The scroll listener is passive. Layout is measured on resize, not in the draw loop.
